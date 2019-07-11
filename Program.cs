@@ -8,8 +8,8 @@ namespace linqPractice
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("");
             // Restriction/Filtering Operations -- Chapter 9
+            Console.WriteLine("");
             List<string> fruits = new List<string>() {"Lemon", "Apple", "Orange", "Lime", "Watermelon", "Loganberry"};
             IEnumerable<string> LFruits = from fruit in fruits
                 where fruit[0] == 'L'
@@ -18,8 +18,9 @@ namespace linqPractice
                 {
                     Console.WriteLine(fruit);
                 }
-            Console.WriteLine("");
+
             // Restriction/Filtering Operations Problem 2 -- Chapter 9
+            Console.WriteLine("");
             List<int> numbers = new List<int>()
             {
                 15, 8, 21, 24, 32, 13, 30, 12, 7, 54, 48, 4, 49, 96
@@ -29,9 +30,10 @@ namespace linqPractice
             {
                 Console.WriteLine(number);
             }
-            Console.WriteLine("");
+
             // Ordering Operations Problem 1 -- Chapter 9
             // Order these student names alphabetically, in descending order (Z to A)
+            Console.WriteLine("");
             List<string> names = new List<string>()
             {
                 "Heather", "James", "Xavier", "Michelle", "Brian", "Nina",
@@ -45,9 +47,10 @@ namespace linqPractice
             {
                 Console.WriteLine(name);
             }
-            Console.WriteLine("");
+
             // Ordering Operations Problem 2 -- Chapter 9
             // Build a collection of these numbers sorted in ascending order
+            Console.WriteLine("");
             List<int> xnumbers = new List<int>()
             {
                 15, 8, 21, 24, 32, 13, 30, 12, 7, 54, 48, 4, 49, 96
