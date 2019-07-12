@@ -46,7 +46,7 @@ namespace linqPractice
             foreach(string name in descend)
             {
                 Console.WriteLine(name);
-            }
+            };
 
             // Ordering Operations Problem 2 -- Chapter 9
             // Build a collection of these numbers sorted in ascending order
@@ -59,14 +59,14 @@ namespace linqPractice
             foreach(int n in ascendingNums)
             {
                 Console.WriteLine(n);
-            }
+            };
 
             List<int> ynumbers = new List<int>()
             {
                 15, 8, 21, 24, 32, 13, 30, 12, 7, 54, 48, 4, 49, 96
             };
             Console.WriteLine("");
-            Console.WriteLine($"Number of items in ynumbers List: {numbers.Count()}");
+            Console.WriteLine($"Number of items in ynumbers List: {ynumbers.Count()}");
 
             List<double> purchases = new List<double>()
             {
@@ -124,7 +124,8 @@ namespace linqPractice
                   {
                       Console.WriteLine($"Customer name: {c.Name}");
                   }
-                  Console.WriteLine("");
+                //   Console.WriteLine("");
+                  Console.WriteLine();
               };  
         }
     }
