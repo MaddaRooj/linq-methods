@@ -104,17 +104,17 @@ namespace linqPractice
             new Customer(){ Name="Jim Brown", Balance=49582.68, Bank="CITI"}
             };
 
-            var results = from p in customers
-              where p.Balance >= 1000000
-              group p by p.Bank into g
-              select new { Banks = g.ToList() };
+            var results = from person in customers
+              where person.Balance >= 1000000
+              group person by person.Bank into millionsGroup
+              select new { Banks = millionsGroup.ToList() };
               Console.WriteLine("");
               foreach(var result in results)
               {
                   Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
-                  foreach(var c in result.Banks)
+                  foreach(var millionaire in result.Banks)
                   {
-                      Console.WriteLine($"Customer name: {c.Name}");
+                      Console.WriteLine($"Customer name: {millionaire.Name}");
                   }
                   Console.WriteLine();
               };  
