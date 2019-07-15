@@ -61,6 +61,8 @@ namespace linqPractice
                 Console.WriteLine(n);
             };
 
+            // Aggregate Operators Problem 1 -- Chapter 9
+            // Output how many total numbers are contained in the following list
             List<int> ynumbers = new List<int>()
             {
                 15, 8, 21, 24, 32, 13, 30, 12, 7, 54, 48, 4, 49, 96
@@ -68,6 +70,8 @@ namespace linqPractice
             Console.WriteLine("");
             Console.WriteLine($"Number of items in ynumbers List: {ynumbers.Count()}");
 
+            // Aggregate Operators Problem 2 -- Chapter 9
+            // Output the total amount of the following list of purchases
             List<double> purchases = new List<double>()
             {
                 2340.29, 745.31, 21.76, 34.03, 4786.45, 879.45, 9442.85, 2454.63, 45.65
@@ -75,6 +79,8 @@ namespace linqPractice
             Console.WriteLine("");
             Console.WriteLine($"Sum of purchases: {purchases.Sum()}");
 
+            // Aggregate Operators Problem 3 -- Chapter 9
+            // Output the largest number from the following list
             List<double> prices = new List<double>()
             {
                 879.45, 9442.85, 2454.63, 45.65, 2340.29, 34.03, 4786.45, 745.31, 21.76
@@ -82,19 +88,8 @@ namespace linqPractice
             Console.WriteLine("");
             Console.WriteLine($"Largest number: {prices.Max()}");
 
-            /*
-            Store each number in the following List until a perfect square
-            is detected.
-
-            Ref: https://msdn.microsoft.com/en-us/library/system.math.sqrt(v=vs.110).aspx
-            */
-            List<int> wheresSquaredo = new List<int>()
-            {
-                66, 12, 8, 27, 82, 34, 7, 50, 19, 46, 81, 23, 30, 4, 68, 14
-            };
-
-            // Using Custom Types Practice Problem
-            // Determine how many customers belog to each individual Bank
+            // Using Custom Types Practice Problem -- Chapter 9
+            // Determine how many millionaires belong to each individual Bank
             List<Customer> customers = new List<Customer>() 
             {
             new Customer(){ Name="Bob Lesman", Balance=80345.66, Bank="FTB"},
@@ -109,22 +104,18 @@ namespace linqPractice
             new Customer(){ Name="Jim Brown", Balance=49582.68, Bank="CITI"}
             };
 
-            /*
-                Given the same customer set, display how many millionaires per bank.
-                Ref: https://stackoverflow.com/questions/7325278/group-by-in-linq
-            */
             var results = from p in customers
+              where p.Balance >= 1000000
               group p by p.Bank into g
               select new { Banks = g.ToList() };
               Console.WriteLine("");
               foreach(var result in results)
               {
-                  Console.WriteLine($"Number of Customers per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
+                  Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
                   foreach(var c in result.Banks)
                   {
                       Console.WriteLine($"Customer name: {c.Name}");
                   }
-                //   Console.WriteLine("");
                   Console.WriteLine();
               };  
         }
