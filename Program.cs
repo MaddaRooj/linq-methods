@@ -90,6 +90,13 @@ namespace linqPractice
 
             // Using Custom Types Practice Problem -- Chapter 9
             // Determine how many millionaires belong to each individual Bank
+            List<Bank> banks = new List<Bank>() {
+            new Bank(){ Name="First Tennessee", Symbol="FTB"},
+            new Bank(){ Name="Wells Fargo", Symbol="WF"},
+            new Bank(){ Name="Bank of America", Symbol="BOA"},
+            new Bank(){ Name="Citibank", Symbol="CITI"},
+            };
+
             List<Customer> customers = new List<Customer>() 
             {
             new Customer(){ Name="Bob Lesman", Balance=80345.66, Bank="FTB"},
@@ -104,20 +111,72 @@ namespace linqPractice
             new Customer(){ Name="Jim Brown", Balance=49582.68, Bank="CITI"}
             };
 
-            var results = from person in customers
-              where person.Balance >= 1000000
-              group person by person.Bank into millionsGroup
-              select new { Banks = millionsGroup.ToList() };
-              Console.WriteLine("");
-              foreach(var result in results)
-              {
-                  Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
-                  foreach(var millionaire in result.Banks)
-                  {
-                      Console.WriteLine($"Customer name: {millionaire.Name}");
-                  }
-                  Console.WriteLine();
-              };  
+            IEnumerable<Customer> MillionairesClub = customers.Where(customer => customer.Balance >= 1000000);
+            // foreach(Customer c in MillionairesClub)
+            // {
+            //     System.Console.WriteLine(c.Name);
+            // };
+
+            // IEnumerable<Customer> MillionairesClubTwo = 
+            //     from customer in customers
+            //     where customer.Balance >= 1000000
+            //     select customer;
+            // foreach(Customer c in MillionairesClubTwo)
+            // {
+            //     System.Console.WriteLine(c.Name);
+            // };
+
+            // IEnumerable<IGrouping<string, Customer>> MillionairesPerBank = MillionairesClub.GroupBy(customer => customer.Bank);
+            // System.Console.WriteLine();
+            // foreach (IGrouping<string, Customer> m in MillionairesPerBank)
+            // {
+            //     System.Console.WriteLine($"{m.Key}: {m.Count()}");
+            // };
+
+            // IEnumerable<IGrouping<string, Customer>> MillionairesPerBank = 
+            //     from millionaire in MillionairesClub
+            //     group millionaire by millionaire.Bank into bankGroup
+            //     select bankGroup;
+            // foreach (IGrouping<string, Customer> m in MillionairesPerBank)
+            // {
+            //     System.Console.WriteLine($"{m.Key}: {m.Count()}");
+            //     foreach (Customer c in m)
+            //     {
+            //         System.Console.WriteLine(c.Name);
+            //     }
+            // };
+
+            // var results = from person in customers
+            //   where person.Balance >= 1000000
+            //   group person by person.Bank into millionsGroup
+            //   select new { Banks = millionsGroup.ToList() };
+            //   Console.WriteLine("");
+            //   foreach(var result in results)
+            //   {
+            //       Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
+            //       foreach(var millionaire in result.Banks)
+            //       {
+            //           Console.WriteLine($"Customer name: {millionaire.Name}");
+            //       }
+            //       Console.WriteLine();
+            //   }; 
+
+            List<ReportItem> millionaireReport = (from customer in customers
+                where customer.Balance >= 1000000
+                orderby customer.Name.Split()[1]
+                join bank in banks on customer.Bank equals bank.Symbol
+                select new ReportItem {
+                    CustomerName = customer.Name,
+                    BankName = bank.Name
+                }).ToList();
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Group by problem: ");
+            foreach (var item in millionaireReport)
+            {
+                System.Console.WriteLine($"{item.CustomerName} at {item.BankName}");
+            }
+ 
         }
     }
 }
