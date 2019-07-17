@@ -111,30 +111,43 @@ namespace linqPractice
             new Customer(){ Name="Jim Brown", Balance=49582.68, Bank="CITI"}
             };
 
-            IEnumerable<Customer> MillionairesClub = customers.Where(customer => customer.Balance >= 1000000);
+            // IEnumerable<Customer> MillionairesClub = customers.Where(customer => customer.Balance >= 1000000);
             // foreach(Customer c in MillionairesClub)
             // {
             //     System.Console.WriteLine(c.Name);
             // };
 
-            // IEnumerable<Customer> MillionairesClubTwo = 
-            //     from customer in customers
-            //     where customer.Balance >= 1000000
-            //     select customer;
-            // foreach(Customer c in MillionairesClubTwo)
-            // {
-            //     System.Console.WriteLine(c.Name);
-            // };
+            IEnumerable<Customer> allCustomers = 
+                from customer in customers
+                select customer;
+            System.Console.WriteLine();
+            System.Console.WriteLine("Full list of customers:");
+            foreach(Customer c in allCustomers)
+            {
+                System.Console.WriteLine(c.Name);
+            };
 
-            // IEnumerable<IGrouping<string, Customer>> MillionairesPerBank = MillionairesClub.GroupBy(customer => customer.Bank);
+            IEnumerable<Customer> MillionairesClubTwo = 
+                from customer in customers
+                where customer.Balance >= 1000000
+                select customer;
+            Console.WriteLine();
+            System.Console.WriteLine("List of Millionaires:");
+            foreach(Customer c in MillionairesClubTwo)
+            {
+                System.Console.WriteLine(c.Name);
+            };
+
+            // IEnumerable<IGrouping<string, Customer>> MillionairesPerBank = MillionairesClubTwo.GroupBy(customer => customer.Bank);
             // System.Console.WriteLine();
+            // System.Console.WriteLine("Customer by Bank:");
             // foreach (IGrouping<string, Customer> m in MillionairesPerBank)
             // {
             //     System.Console.WriteLine($"{m.Key}: {m.Count()}");
             // };
 
             // IEnumerable<IGrouping<string, Customer>> MillionairesPerBank = 
-            //     from millionaire in MillionairesClub
+            //     from millionaire in MillionairesClubTwo
             //     group millionaire by millionaire.Bank into bankGroup
             //     select bankGroup;
             // foreach (IGrouping<string, Customer> m in MillionairesPerBank)
@@ -146,21 +159,23 @@ namespace linqPractice
             //     }
             // };
 
-            // var results = from person in customers
-            //   where person.Balance >= 1000000
-            //   group person by person.Bank into millionsGroup
-            //   select new { Banks = millionsGroup.ToList() };
-            //   Console.WriteLine("");
-            //   foreach(var result in results)
-            //   {
-            //       Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
-            //       foreach(var millionaire in result.Banks)
-            //       {
-            //           Console.WriteLine($"Customer name: {millionaire.Name}");
-            //       }
-            //       Console.WriteLine();
-            //   }; 
+            var results = from person in customers
+              where person.Balance >= 1000000
+              group person by person.Bank into millionsGroup
+              select new { Banks = millionsGroup.ToList() };
+              Console.WriteLine();
+              Console.WriteLine("List of millionaires by Bank: ");
+              foreach(var result in results)
+              {
+                  Console.WriteLine($"Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
+                  foreach(var millionaire in result.Banks)
+                  {
+                      Console.WriteLine($"Customer name: {millionaire.Name}");
+                  }
+                  Console.WriteLine();
+              }; 
 
+            // Final problem - GroupJoin
             List<ReportItem> millionaireReport = (from customer in customers
                 where customer.Balance >= 1000000
                 orderby customer.Name.Split()[1]
