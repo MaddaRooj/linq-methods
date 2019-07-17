@@ -165,6 +165,7 @@ namespace linqPractice
               select new { Banks = millionsGroup.ToList() };
               Console.WriteLine();
               Console.WriteLine("List of millionaires by Bank: ");
+              Console.WriteLine();
               foreach(var result in results)
               {
                   Console.WriteLine($"Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
