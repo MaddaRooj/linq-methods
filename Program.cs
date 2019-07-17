@@ -117,11 +117,22 @@ namespace linqPractice
             //     System.Console.WriteLine(c.Name);
             // };
 
+            IEnumerable<Customer> allCustomers = 
+                from customer in customers
+                select customer;
+            System.Console.WriteLine();
+            System.Console.WriteLine("Full list of customers:");
+            foreach(Customer c in allCustomers)
+            {
+                System.Console.WriteLine(c.Name);
+            };
+
             IEnumerable<Customer> MillionairesClubTwo = 
                 from customer in customers
                 where customer.Balance >= 1000000
                 select customer;
-            System.Console.WriteLine();
+            Console.WriteLine();
+            System.Console.WriteLine("List of Millionaires:");
             foreach(Customer c in MillionairesClubTwo)
             {
                 System.Console.WriteLine(c.Name);
@@ -152,10 +163,11 @@ namespace linqPractice
               where person.Balance >= 1000000
               group person by person.Bank into millionsGroup
               select new { Banks = millionsGroup.ToList() };
-              Console.WriteLine("");
+              Console.WriteLine();
+              Console.WriteLine("List of millionaires by Bank: ");
               foreach(var result in results)
               {
-                  Console.WriteLine($"Number of Millionaires per Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
+                  Console.WriteLine($"Bank: {result.Banks[0].Bank} - {result.Banks.Count}");
                   foreach(var millionaire in result.Banks)
                   {
                       Console.WriteLine($"Customer name: {millionaire.Name}");
